@@ -1,46 +1,42 @@
 package org.algos;
 
+import java.time.Duration;
 import java.time.Instant;
+import java.util.Random;
 
-public class QuickSort extends Thread {
+public class BogoSort extends Thread {
+
     int[] listaNumeros;
 
-    public QuickSort(int[] listaNumeros) {
-        listaNumeros = listaNumeros;
+    public BogoSort(int[] arrayNums) {
+        listaNumeros = arrayNums;
     }
 
-    public static void quickSort(int[] array, int menor, int mayor) {
-        if (menor < mayor) {
-            // hace particion y coje pivote
-            int pivotIndex = particion(array, menor, mayor);
-
-            // ordena nmediante recursión antes y después de la partición
-            quickSort(array, menor, pivotIndex - 1);
-            quickSort(array, pivotIndex + 1, mayor);
+    public static void bogoSort(int[] array) {
+        Random rand = new Random();
+        while (!estaOrdenado(array)) {
+            shuffle(array, rand);
         }
     }
 
-    private static int particion(int[] array, int menor, int mayor) {
-        int pivot = array[mayor];  // coje el ultimo elemento como pivote
-        int i = menor - 1;          // indice del elemento menor
-
-        for (int j = menor; j < mayor; j++) {
-            if (array[j] < pivot) {
-                i++;
-
-                // cambio
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
+    // chequea si está ordenado en orden ascendente
+    public static boolean estaOrdenado(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] > array[i + 1]) {
+                return false;
             }
         }
+        return true;
+    }
 
-        // cambio de pivote a posicion correcta
-        int temp = array[i + 1];
-        array[i + 1] = array[mayor];
-        array[mayor] = temp;
-
-        return i + 1;  // devuelve indice de pivote
+    // ordena al azar
+    public static void shuffle(int[] array, Random rand) {
+        for (int i = 0; i < array.length; i++) {
+            int randomIndex = rand.nextInt(array.length);
+            int temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
     }
 
     @Override
@@ -48,11 +44,14 @@ public class QuickSort extends Thread {
         
         Instant inicio = Instant.now();
 
-        quickSort(listaNumeros, 0, listaNumeros.length - 1);
+        System.out.println("Bogo Sort - Inicio");
+
+        bogoSort(listaNumeros);
 
         Instant fin = Instant.now();
 
-        System.out.println("Quick Sort - Inicio: " + inicio + "\n" + "Quick Sort - Fin: " + fin);
+        Duration duration = Duration.between(inicio, fin);
+        System.out.println("Bogo Sort - Fin: " + duration.toMillis() + " ms");
 
 
     }

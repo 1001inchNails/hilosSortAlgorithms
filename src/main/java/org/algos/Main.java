@@ -1,17 +1,40 @@
 package org.algos;
 
+import java.util.Random;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        Random rand = new Random();
+
+        int[] arrayDesordenado = new int[10001];
+
+        for (int i = 0; i <= 10000; i++) {
+            arrayDesordenado[i] = i;
+        }
+
+        shuffle(arrayDesordenado, rand);
+
+
+        BubbleSort algoritmoBubble = new BubbleSort(arrayDesordenado);
+        QuickSort algoritmoQuick = new QuickSort(arrayDesordenado);
+        BogoSort algoritmoBogo = new BogoSort(arrayDesordenado);
+        MergeSort algoritmoMerge = new MergeSort(arrayDesordenado);
+
+        algoritmoBubble.start();
+        algoritmoQuick.start();
+        algoritmoBogo.start();
+        algoritmoMerge.start();
+    }
+
+    public static void shuffle(int[] array, Random rand) {
+        for (int i = 0; i < array.length; i++) {
+            int randomIndex = rand.nextInt(array.length);
+            int temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
         }
     }
 }
