@@ -9,9 +9,9 @@ public class Main {
 
         Random rand = new Random();
 
-        int[] arrayDesordenado = new int[10001];
+        int[] arrayDesordenado = new int[100001];
 
-        for (int i = 0; i <= 10000; i++) {
+        for (int i = 0; i <= 100000; i++) {
             arrayDesordenado[i] = i;
         }
 

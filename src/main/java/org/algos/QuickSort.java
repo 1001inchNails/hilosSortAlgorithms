@@ -15,7 +15,7 @@ public class QuickSort extends Thread {
             // hace particion y coje pivote
             int pivotIndex = particion(array, menor, mayor);
 
-            // ordena nmediante recursión antes y después de la partición
+            // ordena mediante recursión antes y después de la partición
             quickSort(array, menor, pivotIndex - 1);
             quickSort(array, pivotIndex + 1, mayor);
         }
